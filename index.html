@@ -1,0 +1,312 @@
+<!doctype html>
+<html class="no-js" lang="ES">
+
+<head>
+  <meta charset="utf-8">
+  <title>AlaSQL playground</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="apple-touch-icon" href="icon.png">
+  <!-- Place favicon.ico in the root directory -->
+
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.css">
+
+  <meta name="theme-color" content="#fafafa">
+  <script src="//cdn.jsdelivr.net/alasql/0.2/alasql.min.js"></script> 
+
+  <script>
+
+      alasql("CREATE TABLE empleados (IdEmp number, Nombre string, Apellidos string, Sexo string, Fecha_nac date, Sueldo number, Municipio string, idDpto number)");
+
+      alasql("INSERT INTO empleados VALUES (10478,'Alberto','Perez Lopez', 'M','1969-01-01',1500,'Madrid',1), (10479,'Gloria','Ruiz Ruiz', 'F','1965-01-01',1620,'Sevilla',2), (10480,'Antonio','Garcia Montero', 'M','1960-01-01',1350,'Madrid',1), (10481,'Ana','López Ramírez', 'F','1990-01-01',1250,'Córdoba',3), (10482,'Eduardo','Chicón Terrales', 'M','1980-01-01',1470,'Madrid',2)");
+
+    console.log("tabla creada y datos insertados");
+  </script>
+
+</head>
+
+<body>
+
+  <div class="container" style="margin-top:30px">
+    <a href="#todos">Ver todos los empleados</a> <br>
+    <a href="#madrid">Ver empleados de Madrid</a> <br>
+    <a href="#cordoba">Ver empleados de Córdoba</a> <br>
+    <a href="#descendente">Ver todos por orden descendente de fecha de nacimiento</a> <br>
+    <a href="#solo">Ver sólo los que hayan nacido después de 1976, separados por M y F.</a> 
+  </div>
+
+  <div class="container is-fluid" id="todos" style="margin-top:30px">
+    <h6>Todos los empleados</h6>
+  <table style="width: 100%" border="1">
+    <tr>
+      <th>IdEmp</th>
+      <th>Nombre</th>
+      <th>Apellidos</th>
+      <th>Sexo</th>
+      <th>Fecha_nac</th>
+      <th>Sueldo</th>
+      <th>Municipio</th>
+      <th>idDpto</th>
+    </tr>
+
+    <script>
+
+      var res_1 = alasql("SELECT * FROM empleados");
+      var w = res_1.length;
+
+      console.log(res_1);
+      console.log(w);
+
+
+        if (w>0){
+
+          for (x = 0; x < w; x++){//para cada elemento del array
+          document.write("<tr>");//créame una fila
+          document.write("<td>"+res_1[x].IdEmp+"</td>");
+          document.write("<td>"+res_1[x].Nombre+"</td>");
+          document.write("<td>"+res_1[x].Apellidos+"</td>");
+          document.write("<td>"+res_1[x].Sexo+"</td>");
+          document.write("<td>"+res_1[x].Fecha_nac+"</td>");
+          document.write("<td>"+res_1[x].Sueldo+"</td>");
+          document.write("<td>"+res_1[x].Municipio+"</td>");
+          document.write("<td>"+res_1[x].idDpto+"</td>");
+          document.write("</tr>");
+          }
+        }
+        else {
+          document.write("No hay empleados que cumplan estos criterios");
+        }
+        
+  </script>
+</table>
+</div>
+
+
+  <div class="container is-fluid" id="madrid" style="margin-top:30px">
+    <h6>Todos los empleados de Madrid</h6>
+    <table style="width: 100%" border="1">
+      <tr>
+        <th>IdEmp</th>
+        <th>Nombre</th>
+        <th>Apellidos</th>
+        <th>Sexo</th>
+        <th>Fecha_nac</th>
+        <th>Sueldo</th>
+        <th>Municipio</th>
+        <th>idDpto</th>
+      </tr>
+
+      <script>
+
+        var res_0 = alasql("SELECT * FROM empleados WHERE Municipio = 'Madrid'");
+        var i = res_0.length;
+
+        console.log(res_0);
+        console.log(i);
+
+        console.log(res_0[0].IdEmp);
+
+        if (i>0){
+
+          for (x = 0; x < i; x++){//para cada elemento del array
+          document.write("<tr>");//créame una fila
+          document.write("<td>"+res_0[x].IdEmp+"</td>");
+          document.write("<td>"+res_0[x].Nombre+"</td>");
+          document.write("<td>"+res_0[x].Apellidos+"</td>");
+          document.write("<td>"+res_0[x].Sexo+"</td>");
+          document.write("<td>"+res_0[x].Fecha_nac+"</td>");
+          document.write("<td>"+res_0[x].Sueldo+"</td>");
+          document.write("<td>"+res_0[x].Municipio+"</td>");
+          document.write("<td>"+res_0[x].idDpto+"</td>");
+          document.write("</tr>");
+        }
+      }
+      else {
+        document.write("No hay empleados que cumplan estos criterios");
+      }
+
+
+    </script>
+  </table>
+</div>
+
+<div class="container is-fluid" id="cordoba" style="margin-top:30px">
+  <h6>Todos los empleados de Córdoba</h6>
+  <table style="width: 100%" border="1">
+    <tr>
+      <th>IdEmp</th>
+      <th>Nombre</th>
+      <th>Apellidos</th>
+      <th>Sexo</th>
+      <th>Fecha_nac</th>
+      <th>Sueldo</th>
+      <th>Municipio</th>
+      <th>idDpto</th>
+    </tr>
+
+    <script>
+
+      var res_2 = alasql("SELECT * FROM empleados WHERE Municipio = 'Córdoba'");
+      var u = res_2.length;
+
+
+        if (u>0){
+
+          for (x = 0; x < u; x++){//para cada elemento del array
+          document.write("<tr>");//créame una fila
+          document.write("<td>"+res_2[x].IdEmp+"</td>");
+          document.write("<td>"+res_2[x].Nombre+"</td>");
+          document.write("<td>"+res_2[x].Apellidos+"</td>");
+          document.write("<td>"+res_2[x].Sexo+"</td>");
+          document.write("<td>"+res_2[x].Fecha_nac+"</td>");
+          document.write("<td>"+res_2[x].Sueldo+"</td>");
+          document.write("<td>"+res_2[x].Municipio+"</td>");
+          document.write("<td>"+res_2[x].idDpto+"</td>");
+          document.write("</tr>");
+          }
+        }
+        else {
+          document.write("No hay empleados que cumplan estos criterios");
+        }
+  </script>
+</table>
+</div>
+
+<div class="container is-fluid" id="descendente" style="margin-top:30px">
+  <h5>Todos los empleados por orden descendente de fecha de nacimiento</h5>
+  <table style="width: 100%" border="1">
+    <tr>
+      <th>IdEmp</th>
+      <th>Nombre</th>
+      <th>Apellidos</th>
+      <th>Sexo</th>
+      <th>Fecha_nac</th>
+      <th>Sueldo</th>
+      <th>Municipio</th>
+      <th>idDpto</th>
+    </tr>
+
+    <script>
+
+      var res_3 = alasql("SELECT * FROM empleados ORDER BY Fecha_nac DESC");
+      var t = res_3.length;
+
+
+        if (t>0){
+
+          for (x = 0; x < t; x++){//para cada elemento del array
+          document.write("<tr>");//créame una fila
+          document.write("<td>"+res_3[x].IdEmp+"</td>");
+          document.write("<td>"+res_3[x].Nombre+"</td>");
+          document.write("<td>"+res_3[x].Apellidos+"</td>");
+          document.write("<td>"+res_3[x].Sexo+"</td>");
+          document.write("<td>"+res_3[x].Fecha_nac+"</td>");
+          document.write("<td>"+res_3[x].Sueldo+"</td>");
+          document.write("<td>"+res_3[x].Municipio+"</td>");
+          document.write("<td>"+res_3[x].idDpto+"</td>");
+          document.write("</tr>");
+          }
+        }
+        else {
+          document.write("No hay empleados que cumplan estos criterios");
+        }
+  </script>
+</table>
+</div>
+
+  <div class="container is-fluid" id ="solo" style="margin-top:30px">
+
+    <script>
+
+      var res_4 = alasql("SELECT * FROM empleados WHERE Fecha_nac >= '1976-01-01' AND Sexo = 'M'");
+      var res_5 = alasql("SELECT * FROM empleados WHERE Fecha_nac >= '1976-01-01' AND Sexo = 'F'");
+      var a = res_4.length;
+
+    </script>
+
+    <p>Empleados nacidos después de 1976 y que sean hombres</p>
+
+    <table style="width: 100%" border="1">
+      <tr>
+        <th>IdEmp</th>
+        <th>Nombre</th>
+        <th>Apellidos</th>
+        <th>Sexo</th>
+        <th>Fecha_nac</th>
+        <th>Sueldo</th>
+        <th>Municipio</th>
+        <th>idDpto</th>
+      </tr>
+
+      <script>
+        if (a>0){
+      for (x = 0; x < a; x++){//para cada elemento del array
+      document.write("<tr>");//créame una fila
+      document.write("<td>"+res_4[x].IdEmp+"</td>");
+      document.write("<td>"+res_4[x].Nombre+"</td>");
+      document.write("<td>"+res_4[x].Apellidos+"</td>");
+      document.write("<td>"+res_4[x].Sexo+"</td>");
+      document.write("<td>"+res_4[x].Fecha_nac+"</td>");
+      document.write("<td>"+res_4[x].Sueldo+"</td>");
+      document.write("<td>"+res_4[x].Municipio+"</td>");
+      document.write("<td>"+res_4[x].idDpto+"</td>");
+      document.write("</tr>");
+    }
+  }
+  else {
+    document.write("No hay empleados que cumplan estos criterios");
+  }
+
+</script>
+</table>
+</div>
+
+<div class="container is-fluid" style="margin-top:30px; margin-bottom: 30px">
+<p>Empleados nacidos después de 1976 y que sean mujeres</p>
+
+<table style="width: 100%" border="1">
+  <tr>
+    <th>IdEmp</th>
+    <th>Nombre</th>
+    <th>Apellidos</th>
+    <th>Sexo</th>
+    <th>Fecha_nac</th>
+    <th>Sueldo</th>
+    <th>Municipio</th>
+    <th>idDpto</th>
+  </tr>
+  <script>
+
+    var j = res_5.length;
+
+    if (j>0){
+
+      for (x = 0; x < j; x++){//para cada elemento del array
+      document.write("<tr>");//créame una fila
+      document.write("<td>"+res_5[x].IdEmp+"</td>");
+      document.write("<td>"+res_5[x].Nombre+"</td>");
+      document.write("<td>"+res_5[x].Apellidos+"</td>");
+      document.write("<td>"+res_5[x].Sexo+"</td>");
+      document.write("<td>"+res_5[x].Fecha_nac+"</td>");
+      document.write("<td>"+res_5[x].Sueldo+"</td>");
+      document.write("<td>"+res_5[x].Municipio+"</td>");
+      document.write("<td>"+res_5[x].idDpto+"</td>");
+      document.write("</tr>");
+    }
+  }  
+  else {
+    document.write("No hay empleados que cumplan estos criterios");
+  }</script>
+</table>
+</div>
+
+    <script src="js/plugins.js"></script>
+    <script src="js/main.js"></script>
+
+  </body>
+
+  </html>
